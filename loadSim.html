@@ -23,7 +23,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
-    
+
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -33,14 +33,17 @@
             padding: 8px;
         }
     </style>
+    <link href="styles/loader.css" rel="stylesheet">
 
 </head>
 
-<body>
+<body onload="myFunction()" style="margin:0;">
+
+    <div id="loader"></div>
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <img class="shortcut_icon" src="images/z80icon.Icons" />
+        <!-- <img class="shortcut_icon" src="images/z80icon.Icons" /> -->
         <a class="navbar-brand" href="index.html">Z80 Project</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +58,14 @@
                     <a class="nav-link" href="loadInst.html">Load Instruction</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="loadSim.html">Load Simulator</a>
+                    <a class="nav-link" href="#">Load Simulator</a>
                 </li>
             </ul>
         </div>
     </nav>
 
-    <section class="jumbotron text-center">
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+        <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Load Simulator</h1>
                 <p class="lead text-muted">Select type of load Instruction<p>
@@ -72,114 +76,180 @@
                     </p>
             </div>
         </section>
-    <instruc>
-        <h3 id="d2rInstruc">LD <input type="text" id="d2rR1" size="1"> , 
-            <input type="text" id="d2rData" min="0"
-                size="2"></h3>
-        <h3 hidden id="r2rInstruc">LD <input type="text" id="r2rR1" size="1"> , 
-            <input type="text" id="r2rR2" size="1">
-        </h3>
-        <h3 hidden id="m2rInstruc">LD <input type="text" id="m2rR1" size="1"> , ( 
-            <input type="text" id="m2rM1"size="2"> ) 
-        </h3>
-        <h3 hidden id="r2mInstruc">LD ( <input type="text" id="r2mM1" size="2"> ) , 
-            <input type="text" id="r2mR1"size="1">
-        </h3>
-    </instruc>
-    <b id="ldrstBtn">
-        <button id="load">Load</button>
-        <button id="reset">Reset</button>
-    </b>
+        <instruc>
+            <h3 id="d2rInstruc">LD <input type="text" id="d2rR1" size="1"> ,
+                <input type="text" id="d2rData" min="0" size="2"></h3>
+            <h3 hidden id="r2rInstruc">LD <input type="text" id="r2rR1" size="1"> ,
+                <input type="text" id="r2rR2" size="1">
+            </h3>
+            <h3 hidden id="m2rInstruc">LD <input type="text" id="m2rR1" size="1"> , (
+                <input type="text" id="m2rM1" size="2"> )
+            </h3>
+            <h3 hidden id="r2mInstruc">LD ( <input type="text" id="r2mM1" size="2"> ) ,
+                <input type="text" id="r2mR1" size="1">
+            </h3>
+        </instruc>
+        <b id="ldrstBtn">
+            <button id="load">Load</button>
+            <button id="reset">Reset</button>
+        </b>
 
-    <hr>
-    
-    <regisT style="float: left">
-        <h4>Register Value</h4>
-        <table>
-            <tr>
-                <td id="A">A = 0x00</td>
-                <td id="AF">AF = 0x0000</td>
-            </tr>
-            <tr>
-                <td id="B">B = 0x00</td>
-                <td id="BC">BC = 0x0000</td>
-            </tr>
-            <tr>
-                <td id="C">C = 0x00</td>
-                <td id="DE">DE = 0x0000</td>
-            </tr>
-            <tr>
-                <td id="D">D = 0x00</td>
-                <td id="HL">HL = 0x0000</td>
-            </tr>
-            <tr>
-                <td id="E">E = 0x00</td>
-            </tr>
-            <tr>
-                <td id="F">F = 0x00</td>
-            </tr>
-            <tr>
-                <td id="H">H = 0x00</td>
-                <td id="IX">IX = 0x0000</td>
-            </tr>
-            <tr>
-                <td id="L">L = 0x00</td>
-                <td id="IY">IY = 0x0000</td>
-            </tr>
-        </table>
-    </regisT>
-    <memT>
-        <h4 style="padding-top: 8px">Memory Address</h4>
-        <table>
-            <tr>
-                <td colspan="2" style="border-top-color: rgb(39, 38, 38); text-align: center">...</td>
-            </tr>
-            <tr>
-                <td id="2000">2000: 0x00</td>
-                <td id="200A">200A: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2001">2001: 0x00</td>
-                <td id="200B">200B: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2002">2002: 0x00</td>
-                <td id="200C">200C: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2003">2003: 0x00</td>
-                <td id="200D">200D: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2004">2004: 0x00</td>
-                <td id="200E">200E: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2005">2005: 0x00</td>
-                <td id="200F">200F: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2006">2006: 0x00</td>
-                <td id="2010">2010: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2007">2007: 0x00</td>
-                <td id="2011">2011: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2008">2008: 0x00</td>
-                <td id="2012">2012: 0x00</td>
-            </tr>
-            <tr>
-                <td id="2009">2009: 0x00</td>
-                <td id="2013">2013: 0x00</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="border-bottom-color: white; text-align: center">...</td>
-            </tr>
-        </table>
-    </memT>
+        <hr>
+
+        <regisT style="float: left">
+            <h4>Register Value</h4>
+            <table>
+                <tr>
+                    <td id="A">A = 0x00</td>
+                    <td id="AF">AF = 0x0000</td>
+                </tr>
+                <tr>
+                    <td id="B">B = 0x00</td>
+                    <td id="BC">BC = 0x0000</td>
+                </tr>
+                <tr>
+                    <td id="C">C = 0x00</td>
+                    <td id="DE">DE = 0x0000</td>
+                </tr>
+                <tr>
+                    <td id="D">D = 0x00</td>
+                    <td id="HL">HL = 0x0000</td>
+                </tr>
+                <tr>
+                    <td id="E">E = 0x00</td>
+                </tr>
+                <tr>
+                    <td id="F">F = 0x00</td>
+                </tr>
+                <tr>
+                    <td id="H">H = 0x00</td>
+                    <td id="IX">IX = 0x0000</td>
+                </tr>
+                <tr>
+                    <td id="L">L = 0x00</td>
+                    <td id="IY">IY = 0x0000</td>
+                </tr>
+            </table>
+        </regisT>
+        <memT>
+            <h4 style="padding-top: 8px">Memory Address</h4>
+            <table>
+                <tr>
+                    <td colspan="2" style="border-top-color: rgb(39, 38, 38); text-align: center">...</td>
+                </tr>
+                <tr>
+                    <td id="2000">2000: 0x00</td>
+                    <td id="200A">200A: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2001">2001: 0x00</td>
+                    <td id="200B">200B: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2002">2002: 0x00</td>
+                    <td id="200C">200C: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2003">2003: 0x00</td>
+                    <td id="200D">200D: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2004">2004: 0x00</td>
+                    <td id="200E">200E: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2005">2005: 0x00</td>
+                    <td id="200F">200F: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2006">2006: 0x00</td>
+                    <td id="2010">2010: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2007">2007: 0x00</td>
+                    <td id="2011">2011: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2008">2008: 0x00</td>
+                    <td id="2012">2012: 0x00</td>
+                </tr>
+                <tr>
+                    <td id="2009">2009: 0x00</td>
+                    <td id="2013">2013: 0x00</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border-bottom-color: white; text-align: center">...</td>
+                </tr>
+            </table>
+        </memT>
+    </div>
 </body>
+
+<script>
+    // Toggle for D2R button
+    $('#d2r').click(function() {
+    $('#d2r').removeClass('btn-secondary');
+    $('#d2r').addClass('btn-primary');
+    //$('#d2r').toggleClass('btn-primary btn-secondary');
+    $('#r2r').removeClass('btn-primary');
+    $('#r2r').addClass('btn-secondary');
+    $('#m2r').removeClass('btn-primary');
+    $('#m2r').addClass('btn-secondary');
+    $('#r2m').removeClass('btn-primary');
+    $('#r2m').addClass('btn-secondary');
+    });
+
+    // Toggle for R2R button
+    $('#r2r').click(function() {
+    $('#r2r').removeClass('btn-secondary');
+    $('#r2r').addClass('btn-primary');
+    //$('#r2r').toggleClass('btn-primary btn-secondary');
+    $('#d2r').removeClass('btn-primary');
+    $('#d2r').addClass('btn-secondary');
+    $('#m2r').removeClass('btn-primary');
+    $('#m2r').addClass('btn-secondary');
+    $('#r2m').removeClass('btn-primary');
+    $('#r2m').addClass('btn-secondary');
+    });
+
+    // Toggle for M2R button
+    $('#m2r').click(function() {
+    $('#m2r').removeClass('btn-secondary');
+    $('#m2r').addClass('btn-primary');
+    //$('#m2r').toggleClass('btn-primary btn-secondary');
+    $('#d2r').removeClass('btn-primary');
+    $('#d2r').addClass('btn-secondary');
+    $('#r2r').removeClass('btn-primary');
+    $('#r2r').addClass('btn-secondary');
+    $('#r2m').removeClass('btn-primary');
+    $('#r2m').addClass('btn-secondary');
+    });
+
+    // Toggle for R2M button
+    $('#r2m').click(function() {
+    $('#r2m').removeClass('btn-secondary');
+    $('#r2m').addClass('btn-primary');
+    //$('#r2m').toggleClass('btn-primary btn-secondary');
+    $('#d2r').removeClass('btn-primary');
+    $('#d2r').addClass('btn-secondary');
+    $('#r2r').removeClass('btn-primary');
+    $('#r2r').addClass('btn-secondary');
+    $('#m2r').removeClass('btn-primary');
+    $('#m2r').addClass('btn-secondary');
+    });
+</script>
+
+<script>
+    var time;
+    function myFunction() {
+        time = setTimeout(showPage, 700);
+    }
+    function showPage() {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("myDiv").style.display = "block";
+    }
+</script>
+
 
 <script>
     //Select Type
@@ -246,8 +316,6 @@
         ldrstBtn.style.display = "block";
         d2rIns.removeAttribute("hidden");
         ldrstBtn.removeAttribute("hidden");
-        
-        d2rB.toggleClass('btn-primary btn-secondary');
 
         d2rR1.value = "";
         document.getElementById('d2rData').value = "";
