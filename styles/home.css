@@ -29,6 +29,11 @@ body {
   opacity: 0.8;
 }
 
+.shortcut_icon {
+  width: 1%;
+  height: 1%;
+  margin-right: .5rem;
+}
 
 /* MARKETING CONTENT
 -------------------------------------------------- */
@@ -51,7 +56,7 @@ body {
 ------------------------- */
 
 .featurette-divider {
-  margin: 4rem 0; /* Space out the Bootstrap <hr> more */
+  margin: 5rem 0; /* Space out the Bootstrap <hr> more */
 }
 
 /* Thin out the marketing headings */
@@ -59,7 +64,6 @@ body {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -.05rem;
-    margin-bottom: 50px;
 }
 
 
@@ -83,24 +87,4 @@ body {
   .featurette-heading {
     margin-top: 7rem;
   }
-}
-.shortcut {
-    
-}
-
-.shortcut_icon {
-    width: 20px;
-    margin-right:10px;
-}
-
-.navbar-brand {
-    
-}
-
-.micro_pic {
-    width: 50px;
-}
-
-.featurette-image {
-  
 }
