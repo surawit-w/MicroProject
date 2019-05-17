@@ -22,10 +22,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
     <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <link href="styles/loader.css" rel="stylesheet">
 
 </head>
 
-<body>
+<body onload="myFunction()" style="margin:0;">
+
+        <div id="loader"></div>
 
     <!-- NAVIGATION BAR -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -49,9 +52,24 @@
             </ul>
         </div>
     </nav>
-    <div class="center" style="">
-    <embed src="test.swf" width="1024" height="768">
-    </div>
+    <div style="display:none;" id="myDiv" class="animate-bottom">
+    <div style="text-align: center;">
+        <br>
+        <embed src="test.swf" width="1024" height="768">
+          </div>
+        </div>
 </body>
+
+<!-- Loading -->
+<script>
+        var time;
+        function myFunction() {
+            time = setTimeout(showPage, 300);
+        }
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("myDiv").style.display = "block";
+        }
+    </script>
 
 </html>
