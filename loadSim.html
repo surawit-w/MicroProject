@@ -67,182 +67,217 @@
     <div style="display:none;" id="myDiv" class="animate-bottom">
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Load Simulator</h1>
+                <h1 class="jumbotron-heading">Z80 Load Simulator</h1>
                 <p class="lead text-muted">Select type of load Instruction<p>
                         <a href="#" id="d2r" class="btn btn-primary my-2">Data to Register</a>
                         <a href="#" id="r2r" class="btn btn-secondary my-2">Register to Register</a>
                         <a href="#" id="m2r" class="btn btn-secondary my-2">Memory to Register</a>
                         <a href="#" id="r2m" class="btn btn-secondary my-2">Register to Memory</a>
+                        <a href="#" id="d2m" class="btn btn-secondary my-2">Data to Register's Memory</a>
                     </p>
             </div>
         </section>
-        <instruc>
-            <h3 id="d2rInstruc">LD <input type="text" id="d2rR1" size="1"> ,
-                <input type="text" id="d2rData" min="0" size="2"></h3>
-            <h3 hidden id="r2rInstruc">LD <input type="text" id="r2rR1" size="1"> ,
-                <input type="text" id="r2rR2" size="1">
-            </h3>
-            <h3 hidden id="m2rInstruc">LD <input type="text" id="m2rR1" size="1"> , (
-                <input type="text" id="m2rM1" size="2"> )
-            </h3>
-            <h3 hidden id="r2mInstruc">LD ( <input type="text" id="r2mM1" size="2"> ) ,
-                <input type="text" id="r2mR1" size="1">
-            </h3>
-        </instruc>
-        <b id="ldrstBtn">
-            <button id="load">Load</button>
-            <button id="reset">Reset</button>
-        </b>
+
+        <div class="col-md-8 order-md-1 center">
+            <!-- D2R -->
+            <div class="col-md-8 order-md-1 center" id="d2rInstruc">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Register</label>
+                        <input type="text" class="form-control" id="d2rR1" placeholder="Ex. A,HL">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Value</label>
+                        <input type="text" class="form-control" id="d2rData" placeholder="Ex. 10,2525">
+                    </div>
+                </div>
+            </div>
+
+            <!-- R2R -->
+            <div style="display: none" class="col-md-8 order-md-1 center" id="r2rInstruc">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Register</label>
+                        <input type="text" class="form-control" id="r2rR1" placeholder="Ex. A,HL">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Register</label>
+                        <input type="text" class="form-control" id="r2rR2" placeholder="Ex. A,HL">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- M2R -->
+            <div style="display: none" class="col-md-8 order-md-1 center" id="m2rInstruc">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>Register</label>
+                        <input type="text" class="form-control" id="m2rR1" placeholder="Ex. A,HL">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>(Memory Address)</label>
+                        <input type="text" class="form-control" id="m2rM1" placeholder="Ex. 1000H">
+                    </div>
+                </div>
+            </div>
+
+            <!-- R2M -->
+            <div style="display: none" class="col-md-8 order-md-1 center" id="r2mInstruc">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label>(Memory Address)</label>
+                        <input type="text" class="form-control" id="r2mM1" placeholder="Ex. 1000H">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label>Register</label>
+                        <input type="text" class="form-control" id="r2mR1" placeholder="Ex. A,HL">
+                    </div>
+                </div>
+        
+            </div>
+        
+            <!-- D2M -->
+            <div style="display: none" class="col-md-8 order-md-1 center" id="d2mInstruc">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label>(Register's Memory)</label>
+                            <input type="text" class="form-control" id="d2mR1" placeholder="Ex. 1000H">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label>Value</label>
+                            <input type="text" class="form-control" id="d2mData" placeholder="Ex. 10,2525">
+                        </div>
+                    </div>
+            
+                </div>
+
+                <div class="col-md-8 order-md-1 center">
+                        <button class="btn btn-primary btn-lg btn-success" id="load">Load</button>
+                        <button class="btn btn-primary btn-lg btn-danger" id="reset">Reset</button>
+                    </div>
+        </div>
 
         <hr>
 
-        <regisT style="float: left">
-            <h4>Register Value</h4>
-            <table>
-                <tr>
-                    <td id="A">A = 0x00</td>
-                    <td id="AF">AF = 0x0000</td>
-                </tr>
-                <tr>
-                    <td id="B">B = 0x00</td>
-                    <td id="BC">BC = 0x0000</td>
-                </tr>
-                <tr>
-                    <td id="C">C = 0x00</td>
-                    <td id="DE">DE = 0x0000</td>
-                </tr>
-                <tr>
-                    <td id="D">D = 0x00</td>
-                    <td id="HL">HL = 0x0000</td>
-                </tr>
-                <tr>
-                    <td id="E">E = 0x00</td>
-                </tr>
-                <tr>
-                    <td id="F">F = 0x00</td>
-                </tr>
-                <tr>
-                    <td id="H">H = 0x00</td>
-                    <td id="IX">IX = 0x0000</td>
-                </tr>
-                <tr>
-                    <td id="L">L = 0x00</td>
-                    <td id="IY">IY = 0x0000</td>
-                </tr>
-            </table>
-        </regisT>
-        <memT>
-            <h4 style="padding-top: 8px">Memory Address</h4>
-            <table>
-                <tr>
-                    <td colspan="2" style="border-top-color: rgb(39, 38, 38); text-align: center">...</td>
-                </tr>
-                <tr>
-                    <td id="2000">2000: 0x00</td>
-                    <td id="200A">200A: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2001">2001: 0x00</td>
-                    <td id="200B">200B: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2002">2002: 0x00</td>
-                    <td id="200C">200C: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2003">2003: 0x00</td>
-                    <td id="200D">200D: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2004">2004: 0x00</td>
-                    <td id="200E">200E: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2005">2005: 0x00</td>
-                    <td id="200F">200F: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2006">2006: 0x00</td>
-                    <td id="2010">2010: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2007">2007: 0x00</td>
-                    <td id="2011">2011: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2008">2008: 0x00</td>
-                    <td id="2012">2012: 0x00</td>
-                </tr>
-                <tr>
-                    <td id="2009">2009: 0x00</td>
-                    <td id="2013">2013: 0x00</td>
-                </tr>
-                <tr>
-                    <td colspan="2" style="border-bottom-color: white; text-align: center">...</td>
-                </tr>
-            </table>
-        </memT>
+        <div class="container">
+                <h2>Register Value</h2>
+                <p>This table show all register that can recieve input.</p>            
+                <table class="table table-bordered">
+                  <tbody>
+                        <tr><td id="A">A = 0x00</td> <td id="AF">AF = 0x0000</td> </tr>
+                        <tr><td id="B">B = 0x00</td> <td id="BC">BC = 0x0000</td> </tr>
+                        <tr><td id="C">C = 0x00</td> <td id="DE">DE = 0x0000</td> </tr>
+                        <tr><td id="D">D = 0x00</td> <td id="HL">HL = 0x0000</td> </tr>
+                        <tr><td id="E">E = 0x00</td></tr>
+                        <tr><td id="F">F = 0x00</td></tr>
+                        <tr><td id="H">H = 0x00</td> <td id="IX">IX = 0x0000</td></tr>
+                        <tr><td id="L">L = 0x00</td> <td id="IY">IY = 0x0000</td></tr>
+                  </tbody>
+                </table>
+
+                <h2>Memory Address</h2>
+                <p>This table show address from 2000 to 2013.</p>
+                <table class="table table-bordered">
+                        <tbody>    
+                                <tr> <td id="2000">2000: 0x00</td> <td id="200A">200A: 0x00</td></tr>
+                                <tr> <td id="2001">2001: 0x00</td> <td id="200B">200B: 0x00</td></tr>
+                                <tr> <td id="2002">2002: 0x00</td> <td id="200C">200C: 0x00</td></tr>
+                                <tr> <td id="2003">2003: 0x00</td> <td id="200D">200D: 0x00</td></tr>
+                                <tr> <td id="2004">2004: 0x00</td> <td id="200E">200E: 0x00</td></tr>
+                                <tr> <td id="2005">2005: 0x00</td> <td id="200F">200F: 0x00</td></tr>
+                                <tr> <td id="2006">2006: 0x00</td> <td id="2010">2010: 0x00</td></tr>
+                                <tr> <td id="2007">2007: 0x00</td> <td id="2011">2011: 0x00</td></tr>
+                                <tr> <td id="2008">2008: 0x00</td> <td id="2012">2012: 0x00</td></tr>
+                                <tr> <td id="2009">2009: 0x00</td> <td id="2013">2013: 0x00</td></tr>
+                        </tbody>
+                      </table>
+              </div>
     </div>
 </body>
 
+<!-- Change mode Btn -->
 <script>
     // Toggle for D2R button
-    $('#d2r').click(function() {
-    $('#d2r').removeClass('btn-secondary');
-    $('#d2r').addClass('btn-primary');
-    //$('#d2r').toggleClass('btn-primary btn-secondary');
-    $('#r2r').removeClass('btn-primary');
-    $('#r2r').addClass('btn-secondary');
-    $('#m2r').removeClass('btn-primary');
-    $('#m2r').addClass('btn-secondary');
-    $('#r2m').removeClass('btn-primary');
-    $('#r2m').addClass('btn-secondary');
+    $('#d2r').click(function () {
+        $('#d2r').removeClass('btn-secondary');
+        $('#d2r').addClass('btn-primary');
+        //$('#d2r').toggleClass('btn-primary btn-secondary');
+        $('#r2r').removeClass('btn-primary');
+        $('#r2r').addClass('btn-secondary');
+        $('#m2r').removeClass('btn-primary');
+        $('#m2r').addClass('btn-secondary');
+        $('#r2m').removeClass('btn-primary');
+        $('#r2m').addClass('btn-secondary');
+        $('#d2m').removeClass('btn-primary');
+        $('#d2m').addClass('btn-secondary');
     });
 
     // Toggle for R2R button
-    $('#r2r').click(function() {
-    $('#r2r').removeClass('btn-secondary');
-    $('#r2r').addClass('btn-primary');
-    //$('#r2r').toggleClass('btn-primary btn-secondary');
-    $('#d2r').removeClass('btn-primary');
-    $('#d2r').addClass('btn-secondary');
-    $('#m2r').removeClass('btn-primary');
-    $('#m2r').addClass('btn-secondary');
-    $('#r2m').removeClass('btn-primary');
-    $('#r2m').addClass('btn-secondary');
+    $('#r2r').click(function () {
+        $('#r2r').removeClass('btn-secondary');
+        $('#r2r').addClass('btn-primary');
+        //$('#r2r').toggleClass('btn-primary btn-secondary');
+        $('#d2r').removeClass('btn-primary');
+        $('#d2r').addClass('btn-secondary');
+        $('#m2r').removeClass('btn-primary');
+        $('#m2r').addClass('btn-secondary');
+        $('#r2m').removeClass('btn-primary');
+        $('#r2m').addClass('btn-secondary');
+        $('#d2m').removeClass('btn-primary');
+        $('#d2m').addClass('btn-secondary');
     });
 
     // Toggle for M2R button
-    $('#m2r').click(function() {
-    $('#m2r').removeClass('btn-secondary');
-    $('#m2r').addClass('btn-primary');
-    //$('#m2r').toggleClass('btn-primary btn-secondary');
-    $('#d2r').removeClass('btn-primary');
-    $('#d2r').addClass('btn-secondary');
-    $('#r2r').removeClass('btn-primary');
-    $('#r2r').addClass('btn-secondary');
-    $('#r2m').removeClass('btn-primary');
-    $('#r2m').addClass('btn-secondary');
+    $('#m2r').click(function () {
+        $('#m2r').removeClass('btn-secondary');
+        $('#m2r').addClass('btn-primary');
+        //$('#m2r').toggleClass('btn-primary btn-secondary');
+        $('#d2r').removeClass('btn-primary');
+        $('#d2r').addClass('btn-secondary');
+        $('#r2r').removeClass('btn-primary');
+        $('#r2r').addClass('btn-secondary');
+        $('#r2m').removeClass('btn-primary');
+        $('#r2m').addClass('btn-secondary');
+        $('#d2m').removeClass('btn-primary');
+        $('#d2m').addClass('btn-secondary');
     });
 
     // Toggle for R2M button
-    $('#r2m').click(function() {
-    $('#r2m').removeClass('btn-secondary');
-    $('#r2m').addClass('btn-primary');
-    //$('#r2m').toggleClass('btn-primary btn-secondary');
-    $('#d2r').removeClass('btn-primary');
-    $('#d2r').addClass('btn-secondary');
-    $('#r2r').removeClass('btn-primary');
-    $('#r2r').addClass('btn-secondary');
-    $('#m2r').removeClass('btn-primary');
-    $('#m2r').addClass('btn-secondary');
+    $('#r2m').click(function () {
+        $('#r2m').removeClass('btn-secondary');
+        $('#r2m').addClass('btn-primary');
+        //$('#r2m').toggleClass('btn-primary btn-secondary');
+        $('#d2r').removeClass('btn-primary');
+        $('#d2r').addClass('btn-secondary');
+        $('#r2r').removeClass('btn-primary');
+        $('#r2r').addClass('btn-secondary');
+        $('#m2r').removeClass('btn-primary');
+        $('#m2r').addClass('btn-secondary');
+        $('#d2m').removeClass('btn-primary');
+        $('#d2m').addClass('btn-secondary');
+    });
+
+    // Toggle for D2M button
+    $('#d2m').click(function () {
+        $('#d2m').removeClass('btn-secondary');
+        $('#d2m').addClass('btn-primary');
+        //$('#r2m').toggleClass('btn-primary btn-secondary');
+        $('#d2r').removeClass('btn-primary');
+        $('#d2r').addClass('btn-secondary');
+        $('#r2r').removeClass('btn-primary');
+        $('#r2r').addClass('btn-secondary');
+        $('#m2r').removeClass('btn-primary');
+        $('#m2r').addClass('btn-secondary');
+        $('#r2m').removeClass('btn-primary');
+        $('#r2m').addClass('btn-secondary');
     });
 </script>
 
+<!-- Loading -->
 <script>
     var time;
     function myFunction() {
-        time = setTimeout(showPage, 700);
+        time = setTimeout(showPage, 300);
     }
     function showPage() {
         document.getElementById("loader").style.display = "none";
@@ -250,803 +285,963 @@
     }
 </script>
 
-
+<!-- Main Functions -->
 <script>
-    //Select Type
-    var d2rB = document.getElementById('d2r').addEventListener('click', d2rF);
-    var r2rB = document.getElementById('r2r').addEventListener('click', r2rF);
-    document.getElementById('m2r').addEventListener('click', m2rF);
-    document.getElementById('r2m').addEventListener('click', r2mF);
+        //Select Type
+        document.getElementById('d2r').addEventListener('click',d2r);
+        document.getElementById('r2r').addEventListener('click',r2r);
+        document.getElementById('m2r').addEventListener('click',m2r);
+        document.getElementById('r2m').addEventListener('click',r2m);
+        document.getElementById('d2m').addEventListener('click',d2m);
 
-    //Click Button
-    document.getElementById('load').addEventListener('click', loadF);
-    document.getElementById('reset').addEventListener('click', resetF);
+        //Click Button
+        document.getElementById('load').addEventListener('click',load);
+        document.getElementById('reset').addEventListener('click',reset);
 
-    //Instruction
-    var d2rIns = document.getElementById('d2rInstruc');
-    var r2rIns = document.getElementById('r2rInstruc');
-    var m2rIns = document.getElementById('m2rInstruc');
-    var r2mIns = document.getElementById('r2mInstruc');
+        //Instruction
+        var d2rIns = document.getElementById('d2rInstruc');
+        var r2rIns = document.getElementById('r2rInstruc');
+        var m2rIns = document.getElementById('m2rInstruc');
+        var r2mIns = document.getElementById('r2mInstruc');
+        var d2mIns = document.getElementById('d2mInstruc');
 
-    //Button
-    var ldrstBtn = document.getElementById('ldrstBtn');
+        var memT = document.getElementById('memT');
 
-    //Register Value Table
-    var a8 = document.getElementById('A');
-    var b8 = document.getElementById('B');
-    var c8 = document.getElementById('C');
-    var d8 = document.getElementById('D');
-    var e8 = document.getElementById('E');
-    var f8 = document.getElementById('F');
-    var h8 = document.getElementById('H');
-    var l8 = document.getElementById('L');
-    var af16 = document.getElementById('AF');
-    var bc16 = document.getElementById('BC');
-    var de16 = document.getElementById('DE');
-    var hl16 = document.getElementById('HL');
+        //Button
+        var ldrstBtn = document.getElementById('ldrstBtn');
 
-    //Memory Address Table
-    var m2000 = document.getElementById('2000');
-    var m2001 = document.getElementById('2001');
-    var m2002 = document.getElementById('2002');
-    var m2003 = document.getElementById('2003');
-    var m2004 = document.getElementById('2004');
-    var m2005 = document.getElementById('2005');
-    var m2006 = document.getElementById('2006');
-    var m2007 = document.getElementById('2007');
-    var m2008 = document.getElementById('2008');
-    var m2009 = document.getElementById('2009');
-    var m200a = document.getElementById('200A');
-    var m200b = document.getElementById('200B');
-    var m200c = document.getElementById('200C');
-    var m200d = document.getElementById('200D');
-    var m200e = document.getElementById('200E');
-    var m200f = document.getElementById('200F');
-    var m2010 = document.getElementById('2010');
-    var m2011 = document.getElementById('2011');
-    var m2012 = document.getElementById('2012');
-    var m2013 = document.getElementById('2013');
+        //Register Value Table
+        var a8 = document.getElementById('A');
+        var b8 = document.getElementById('B');
+        var c8 = document.getElementById('C');
+        var d8 = document.getElementById('D');
+        var e8 = document.getElementById('E');
+        var f8 = document.getElementById('F');
+        var h8 = document.getElementById('H');
+        var l8 = document.getElementById('L');
+        var af16 = document.getElementById('AF');
+        var bc16 = document.getElementById('BC');
+        var de16 = document.getElementById('DE');
+        var hl16 = document.getElementById('HL');
 
-    //Select Data to Register 
-    function d2rF() {
-        d2rIns.style.display = "block";
-        r2rIns.style.display = 'none';
-        m2rIns.style.display = 'none';
-        r2mIns.style.display = 'none';
-        ldrstBtn.style.display = "block";
-        d2rIns.removeAttribute("hidden");
-        ldrstBtn.removeAttribute("hidden");
+        var ix = document.getElementById('IX');
+        var iy = document.getElementById('IY');
 
-        d2rR1.value = "";
-        document.getElementById('d2rData').value = "";
-        r2rR1.value = "";
-        r2rR2.value = "";
-        m2rR1.value = "";
-        m2rM1.value = "";
-        r2mM1.value = "";
-        r2mR1.value = "";
+        //Memory Address Table
+        var m2000 = document.getElementById('2000');
+        var m2001 = document.getElementById('2001');
+        var m2002 = document.getElementById('2002');
+        var m2003 = document.getElementById('2003');
+        var m2004 = document.getElementById('2004');
+        var m2005 = document.getElementById('2005');
+        var m2006 = document.getElementById('2006');
+        var m2007 = document.getElementById('2007');
+        var m2008 = document.getElementById('2008');
+        var m2009 = document.getElementById('2009');
+        var m200a = document.getElementById('200A');
+        var m200b = document.getElementById('200B');
+        var m200c = document.getElementById('200C');
+        var m200d = document.getElementById('200D');
+        var m200e = document.getElementById('200E');
+        var m200f = document.getElementById('200F');
+        var m2010 = document.getElementById('2010');
+        var m2011 = document.getElementById('2011');
+        var m2012 = document.getElementById('2012');
+        var m2013 = document.getElementById('2013');
 
-    }
+        //Select Data to Register 
+        function d2r() {
+            d2rIns.style.display="block";
+            r2rIns.style.display='none';
+            m2rIns.style.display='none';
+            r2mIns.style.display='none';
+            d2mIns.style.display='none';
+            ldrstBtn.style.display="block";
 
-    //Select Register to Register
-    function r2rF() {
-        d2rIns.style.display = "none";
-        r2rIns.style.display = 'block';
-        m2rIns.style.display = 'none';
-        r2mIns.style.display = 'none';
-        ldrstBtn.style.display = "block";
-        r2rIns.removeAttribute("hidden");
-        ldrstBtn.removeAttribute("hidden");
+            memT.style.padding="0px";
 
-        d2rR1.value = "";
-        document.getElementById('d2rData').value = "";
-        r2rR1.value = "";
-        r2rR2.value = "";
-        m2rR1.value = "";
-        m2rM1.value = "";
-        r2mM1.value = "";
-        r2mR1.value = "";
+            d2rR1.value = "";
+            document.getElementById('d2rData').value = "";
+            r2rR1.value = "";
+            r2rR2.value = "";
+            m2rR1.value = "";
+            m2rM1.value = "";
+            r2mM1.value = "";
+            r2mR1.value = "";
 
-    }
+        }
 
-    //Select Memory to Register
-    function m2rF() {
-        d2rIns.style.display = "none";
-        r2rIns.style.display = 'none';
-        m2rIns.style.display = 'block';
-        r2mIns.style.display = 'none';
-        ldrstBtn.style.display = "block";
-        m2rIns.removeAttribute("hidden");
-        ldrstBtn.removeAttribute("hidden");
+        //Select Register to Register
+        function r2r() {
+            d2rIns.style.display="none";
+            r2rIns.style.display='block';
+            m2rIns.style.display='none';
+            r2mIns.style.display='none';
+            d2mIns.style.display='none'
+            ldrstBtn.style.display="block";
 
-        d2rR1.value = "";
-        document.getElementById('d2rData').value = "";
-        r2rR1.value = "";
-        r2rR2.value = "";
-        m2rR1.value = "";
-        m2rM1.value = "";
-        r2mM1.value = "";
-        r2mR1.value = "";
-    }
+            memT.style.padding="0px";
 
-    //Select Register to Memory
-    function r2mF() {
-        d2rIns.style.display = "none";
-        r2rIns.style.display = 'none';
-        m2rIns.style.display = 'none';
-        r2mIns.style.display = 'block';
-        ldrstBtn.style.display = "block";
-        r2mIns.removeAttribute("hidden");
-        ldrstBtn.removeAttribute("hidden");
+            d2rR1.value = "";
+            document.getElementById('d2rData').value = "";
+            r2rR1.value = "";
+            r2rR2.value = "";
+            m2rR1.value = "";
+            m2rM1.value = "";
+            r2mM1.value = "";
+            r2mR1.value = "";
 
-        d2rR1.value = "";
-        document.getElementById('d2rData').value = "";
-        r2rR1.value = "";
-        r2rR2.value = "";
-        m2rR1.value = "";
-        m2rM1.value = "";
-        r2mM1.value = "";
-        r2mR1.value = "";
-    }
+        }
 
-    //Click Load
-    function loadF() {
-        //declare input 
-        var d2rR1 = document.getElementById('d2rR1').value;
-        if ((document.getElementById('d2rData').value).charAt(0) == "-") {
-            alert("Cannot load negative value.");
-            if (d2rR1.length == 2) {
-                var d2rData = "0000";
+        //Select Memory to Register
+        function m2r() {
+            d2rIns.style.display="none";
+            r2rIns.style.display='none';
+            m2rIns.style.display='block';
+            r2mIns.style.display='none';
+            d2mIns.style.display='none'
+            ldrstBtn.style.display="block";
+
+            memT.style.padding="0px";
+
+            d2rR1.value = "";
+            document.getElementById('d2rData').value = "";
+            r2rR1.value = "";
+            r2rR2.value = "";
+            m2rR1.value = "";
+            m2rM1.value = "";
+            r2mM1.value = "";
+            r2mR1.value = "";
+        }
+
+        //Select Register to Memory
+        function r2m() {
+            d2rIns.style.display="none";
+            r2rIns.style.display='none';
+            m2rIns.style.display='none';
+            r2mIns.style.display='block';
+            d2mIns.style.display='none'
+            ldrstBtn.style.display="block";
+
+            memT.style.padding="0px";
+
+            d2rR1.value = "";
+            document.getElementById('d2rData').value = "";
+            r2rR1.value = "";
+            r2rR2.value = "";
+            m2rR1.value = "";
+            m2rM1.value = "";
+            r2mM1.value = "";
+            r2mR1.value = "";
+        }
+
+        function d2m() {
+            d2rIns.style.display="none";
+            r2rIns.style.display='none';
+            m2rIns.style.display='none';
+            r2mIns.style.display='none';
+            d2mIns.style.display='block';
+            ldrstBtn.style.display="block";
+
+            memT.style.padding="0px";
+
+            d2rR1.value = "";
+            document.getElementById('d2rData').value = "";
+            r2rR1.value = "";
+            r2rR2.value = "";
+            m2rR1.value = "";
+            m2rM1.value = "";
+            r2mM1.value = "";
+            r2mR1.value = "";
+        }
+
+        //Click Load
+        function load() {
+            //declare input 
+            var d2rR1 = document.getElementById('d2rR1').value;
+            if ((document.getElementById('d2rData').value).charAt(0) == "-") {
+                alert("Cannot load negative value.");
+                if (d2rR1.length == 2) {
+                    var d2rData = "0000";
+                } else {
+                    var d2rData = "00";
+                }
+            } else if ((document.getElementById('d2rData').value).charAt(4) == "H" || (document.getElementById('d2rData').value).charAt(4) == "h") {
+                var d2rData = (document.getElementById('d2rData').value).substring(0,4);
+            } else if (d2rR1.length == 2) {
+                var d2rData = ("0" + parseInt(document.getElementById('d2rData').value).toString(16)).slice(-4);    
+            } else if ((document.getElementById('d2rData').value).charAt(2) == "H" || (document.getElementById('d2rData').value).charAt(2) == "h"){ 
+                var d2rData = (document.getElementById('d2rData').value).substring(0,2);
             } else {
-                var d2rData = "00";
+                var d2rData = ("0" + parseInt(document.getElementById('d2rData').value).toString(16)).slice(-2);    
             }
-        } else if ((document.getElementById('d2rData').value).charAt(4) == "H" || (document.getElementById('d2rData').value).charAt(4) == "h") {
-            var d2rData = (document.getElementById('d2rData').value).substring(0, 4);
-        } else if (d2rR1.length == 2) {
-            var d2rData = ("0" + parseInt(document.getElementById('d2rData').value).toString(16)).slice(-4);
-        } else if ((document.getElementById('d2rData').value).charAt(2) == "H" || (document.getElementById('d2rData').value).charAt(2) == "h") {
-            var d2rData = (document.getElementById('d2rData').value).substring(0, 2);
-        } else {
-            var d2rData = ("0" + parseInt(document.getElementById('d2rData').value).toString(16)).slice(-2);
-        }
-        var r2rR1 = document.getElementById('r2rR1').value;
-        var r2rR2 = document.getElementById('r2rR2').value;
-        var m2rR1 = document.getElementById('m2rR1').value;
-        var m2rM1 = document.getElementById('m2rM1').value;
-        var r2mM1 = document.getElementById('r2mM1').value;
-        var r2mR1 = document.getElementById('r2mR1').value;
+            var r2rR1 = document.getElementById('r2rR1').value;
+            var r2rR2 = document.getElementById('r2rR2').value;
+            var m2rR1 = document.getElementById('m2rR1').value;
+            var m2rM1 = document.getElementById('m2rM1').value;
+            var r2mM1 = document.getElementById('r2mM1').value;
+            var r2mR1 = document.getElementById('r2mR1').value;
+            var d2mR1 = document.getElementById('d2mR1').value;
+            if ((document.getElementById('d2mData').value).charAt(0) == "-") {
+                alert("Cannot load negative value.");
+                if (d2mR1.length == 2) {
+                    var d2mData = "0000";
+                } else {
+                    var d2mData = "00";
+                }
+            } else if ((document.getElementById('d2mData').value).charAt(4) == "H" || (document.getElementById('d2mData').value).charAt(4) == "h") {
+                var d2mData = (document.getElementById('d2mData').value).substring(0,4);
+            } else if (d2rR1.length == 2) {
+                var d2mData = ("0" + parseInt(document.getElementById('d2mData').value).toString(16)).slice(-4);    
+            } else if ((document.getElementById('d2mData').value).charAt(2) == "H" || (document.getElementById('d2mData').value).charAt(2) == "h"){ 
+                var d2mData = (document.getElementById('d2rData').value).substring(0,2);
+            } else {
+                var d2mData = ("0" + parseInt(document.getElementById('d2mData').value).toString(16)).slice(-2);    
+            }
 
-        //Data to Register
-        //LD r,n
-        if (d2rR1 == "A" || d2rR1 == "a") { a8.textContent = "A = 0x" + d2rData; af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-        if (d2rR1 == "B" || d2rR1 == "b") { b8.textContent = "B = 0x" + d2rData; bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-        if (d2rR1 == "C" || d2rR1 == "c") { c8.textContent = "C = 0x" + d2rData; bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-        if (d2rR1 == "D" || d2rR1 == "d") { d8.textContent = "D = 0x" + d2rData; de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-        if (d2rR1 == "E" || d2rR1 == "e") { e8.textContent = "E = 0x" + d2rData; de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-        if (d2rR1 == "F" || d2rR1 == "f") { f8.textContent = "F = 0x" + d2rData; af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-        if (d2rR1 == "H" || d2rR1 == "h") { h8.textContent = "H = 0x" + d2rData; hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-        if (d2rR1 == "L" || d2rR1 == "l") { l8.textContent = "L = 0x" + d2rData; hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-        if (d2rR1 == "AF" || d2rR1 == "af" || d2rR1 == "Af" || d2rR1 == "aF") { af16.textContent = "AF = 0x" + d2rData; a8.textContent = "A = 0x" + af16.textContent.substring(7, 9); f8.textContent = "F = 0x" + af16.textContent.substring(9, 11); }
-        if (d2rR1 == "BC" || d2rR1 == "bc" || d2rR1 == "Bc" || d2rR1 == "bC") { bc16.textContent = "BC = 0x" + d2rData; b8.textContent = "B = 0x" + bc16.textContent.substring(7, 9); c8.textContent = "C = 0x" + bc16.textContent.substring(9, 11); }
-        if (d2rR1 == "DE" || d2rR1 == "de" || d2rR1 == "De" || d2rR1 == "dE") { de16.textContent = "DE = 0x" + d2rData; d8.textContent = "D = 0x" + de16.textContent.substring(7, 9); e8.textContent = "E = 0x" + de16.textContent.substring(9, 11); }
-        if (d2rR1 == "HL" || d2rR1 == "hl" || d2rR1 == "Hl" || d2rR1 == "hL") { hl16.textContent = "HL = 0x" + d2rData; h8.textContent = "H = 0x" + hl16.textContent.substring(7, 9); l8.textContent = "L = 0x" + hl16.textContent.substring(9, 11); }
+            //Data to Register
+            //LD r,n
+            if (d2rR1 == "A" || d2rR1 == "a") { a8.textContent = "A = 0x" + d2rData; af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); } 
+            if (d2rR1 == "B" || d2rR1 == "b") { b8.textContent = "B = 0x" + d2rData; bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+            if (d2rR1 == "C" || d2rR1 == "c") { c8.textContent = "C = 0x" + d2rData; bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); }
+            if (d2rR1 == "D" || d2rR1 == "d") { d8.textContent = "D = 0x" + d2rData; de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+            if (d2rR1 == "E" || d2rR1 == "e") { e8.textContent = "E = 0x" + d2rData; de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+            if (d2rR1 == "F" || d2rR1 == "f") { f8.textContent = "F = 0x" + d2rData; af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); } 
+            if (d2rR1 == "H" || d2rR1 == "h") { h8.textContent = "H = 0x" + d2rData; hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); } 
+            if (d2rR1 == "L" || d2rR1 == "l") { l8.textContent = "L = 0x" + d2rData; hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+            if (d2rR1 == "AF" || d2rR1 == "af" || d2rR1 == "Af" || d2rR1 == "aF") { af16.textContent = "AF = 0x" + d2rData; a8.textContent = "A = 0x" + af16.textContent.substring(7,9); f8.textContent = "F = 0x" + af16.textContent.substring(9,11);}
+            if (d2rR1 == "BC" || d2rR1 == "bc" || d2rR1 == "Bc" || d2rR1 == "bC") { bc16.textContent = "BC = 0x" + d2rData; b8.textContent = "B = 0x" + bc16.textContent.substring(7,9); c8.textContent = "C = 0x" + bc16.textContent.substring(9,11);}
+            if (d2rR1 == "DE" || d2rR1 == "de" || d2rR1 == "De" || d2rR1 == "dE") { de16.textContent = "DE = 0x" + d2rData; d8.textContent = "D = 0x" + de16.textContent.substring(7,9); e8.textContent = "E = 0x" + de16.textContent.substring(9,11); }
+            if (d2rR1 == "HL" || d2rR1 == "hl" || d2rR1 == "Hl" || d2rR1 == "hL") { hl16.textContent = "HL = 0x" + d2rData; h8.textContent = "H = 0x" + hl16.textContent.substring(7,9); l8.textContent = "L = 0x" + hl16.textContent.substring(9,11); }
+            if (d2rR1 == "IX" || d2rR1 == "ix" || d2rR1 == "Ix" || d2rR1 == "iX") { ix.textContent = "IX = 0x" + d2rData;}
+            if (d2rR1 == "IY" || d2rR1 == "iy" || d2rR1 == "Iy" || d2rR1 == "iY") { iy.textContent = "IY = 0x" + d2rData;}
 
-        //Register to Register
-        //LD A,r
-        if (r2rR1 == "A" || r2rR1 == "a") {
-            if (r2rR2 == "B" || r2rR2 == "b") { a8.textContent = "A = 0x" + b8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { a8.textContent = "A = 0x" + c8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { a8.textContent = "A = 0x" + d8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { a8.textContent = "A = 0x" + e8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { a8.textContent = "A = 0x" + f8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { a8.textContent = "A = 0x" + h8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { a8.textContent = "A = 0x" + l8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
+            //Register to Register
+            //LD A,r
+            if (r2rR1 == "A" || r2rR1 == "a") {
+                if (r2rR2 == "B" || r2rR2 == "b") { a8.textContent = "A = 0x" + b8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "C" || r2rR2 == "c") { a8.textContent = "A = 0x" + c8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "D" || r2rR2 == "d") { a8.textContent = "A = 0x" + d8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "E" || r2rR2 == "e") { a8.textContent = "A = 0x" + e8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); } 
+                if (r2rR2 == "F" || r2rR2 == "f") { a8.textContent = "A = 0x" + f8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "H" || r2rR2 == "h") { a8.textContent = "A = 0x" + h8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "L" || r2rR2 == "l") { a8.textContent = "A = 0x" + l8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+            }
+
+            //LD B,r
+            if (r2rR1 == "B" || r2rR1 == "b") {
+                if (r2rR2 == "A" || r2rR2 == "a") { b8.textContent = "B = 0x" + a8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "C" || r2rR2 == "c") { b8.textContent = "B = 0x" + c8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "D" || r2rR2 == "d") { b8.textContent = "B = 0x" + d8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "E" || r2rR2 == "e") { b8.textContent = "B = 0x" + e8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "F" || r2rR2 == "f") { b8.textContent = "B = 0x" + f8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "H" || r2rR2 == "h") { b8.textContent = "B = 0x" + h8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "L" || r2rR2 == "l") { b8.textContent = "B = 0x" + l8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+            }
+
+            //LD C,r
+            if (r2rR1 == "C" || r2rR1 == "c") {
+                if (r2rR2 == "A" || r2rR2 == "a") { c8.textContent = "C = 0x" + a8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "B" || r2rR2 == "b") { c8.textContent = "C = 0x" + b8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "D" || r2rR2 == "d") { c8.textContent = "C = 0x" + d8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "E" || r2rR2 == "e") { c8.textContent = "C = 0x" + e8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "F" || r2rR2 == "f") { c8.textContent = "C = 0x" + f8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "H" || r2rR2 == "h") { c8.textContent = "C = 0x" + h8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+                if (r2rR2 == "L" || r2rR2 == "l") { c8.textContent = "C = 0x" + l8.textContent.substring(6,8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6,8) + c8.textContent.substring(6,8); } 
+            }
+
+            //LD D,r
+            if (r2rR1 == "D" || r2rR1 == "d") {
+                if (r2rR2 == "A" || r2rR2 == "a") { d8.textContent = "D = 0x" + a8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "B" || r2rR2 == "b") { d8.textContent = "D = 0x" + b8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "C" || r2rR2 == "c") { d8.textContent = "D = 0x" + c8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "E" || r2rR2 == "e") { d8.textContent = "D = 0x" + e8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "F" || r2rR2 == "f") { d8.textContent = "D = 0x" + f8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "H" || r2rR2 == "h") { d8.textContent = "D = 0x" + h8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "L" || r2rR2 == "l") { d8.textContent = "D = 0x" + l8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+            }
+
+            //LD E,r
+            if (r2rR1 == "E" || r2rR1 == "e") {
+                if (r2rR2 == "A" || r2rR2 == "a") { e8.textContent = "E = 0x" + a8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "B" || r2rR2 == "b") { e8.textContent = "E = 0x" + b8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "C" || r2rR2 == "c") { e8.textContent = "E = 0x" + c8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "D" || r2rR2 == "d") { e8.textContent = "E = 0x" + d8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "F" || r2rR2 == "f") { e8.textContent = "E = 0x" + f8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); }  
+                if (r2rR2 == "H" || r2rR2 == "h") { e8.textContent = "E = 0x" + h8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+                if (r2rR2 == "L" || r2rR2 == "l") { e8.textContent = "E = 0x" + l8.textContent.substring(6,8); de16.textContent = "DE = 0x" + d8.textContent.substring(6,8) + e8.textContent.substring(6,8); } 
+            }
+
+            //LD F,r
+            if (r2rR1 == "F" || r2rR1 == "f") {
+                if (r2rR2 == "A" || r2rR2 == "a") { f8.textContent = "F = 0x" + a8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "B" || r2rR2 == "b") { f8.textContent = "F = 0x" + b8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "C" || r2rR2 == "c") { f8.textContent = "F = 0x" + c8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "D" || r2rR2 == "d") { f8.textContent = "F = 0x" + d8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "E" || r2rR2 == "e") { f8.textContent = "F = 0x" + e8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "H" || r2rR2 == "h") { f8.textContent = "F = 0x" + h8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+                if (r2rR2 == "L" || r2rR2 == "l") { f8.textContent = "F = 0x" + l8.textContent.substring(6,8); af16.textContent = "AF = 0x" + a8.textContent.substring(6,8) + f8.textContent.substring(6,8); }
+            }
+
+            //LD H,r
+            if (r2rR1 == "H" || r2rR1 == "h") {
+                if (r2rR2 == "A" || r2rR2 == "a") { h8.textContent = "H = 0x" + a8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "B" || r2rR2 == "b") { h8.textContent = "H = 0x" + b8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "C" || r2rR2 == "c") { h8.textContent = "H = 0x" + c8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "D" || r2rR2 == "d") { h8.textContent = "H = 0x" + d8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "E" || r2rR2 == "e") { h8.textContent = "H = 0x" + e8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "F" || r2rR2 == "f") { h8.textContent = "H = 0x" + f8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "L" || r2rR2 == "l") { h8.textContent = "H = 0x" + l8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+            }
+
+            //LD L,r
+            if (r2rR1 == "L" || r2rR1 == "l") {
+                if (r2rR2 == "A" || r2rR2 == "a") { l8.textContent = "L = 0x" + a8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "B" || r2rR2 == "b") { l8.textContent = "L = 0x" + b8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "C" || r2rR2 == "c") { l8.textContent = "L = 0x" + c8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "D" || r2rR2 == "d") { l8.textContent = "L = 0x" + d8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "E" || r2rR2 == "e") { l8.textContent = "L = 0x" + e8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "F" || r2rR2 == "f") { l8.textContent = "L = 0x" + f8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+                if (r2rR2 == "H" || r2rR2 == "h") { l8.textContent = "L = 0x" + h8.textContent.substring(6,8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6,8) + l8.textContent.substring(6,8); }
+            }
+
+            //Memory to Register
+            //LD r,(BC)
+            if (m2rM1 == "BC" || m2rM1 == "bc" || m2rM1 == "Bc" || m2rM1 == "bC"  ) {
+                m2rM1 = bc16.textContent.substring(7,11) + "H" ;
+            }
+            //LD r,(DE)
+            if (m2rM1 == "DE" || m2rM1 == "de" || m2rM1 == "De" || m2rM1 == "dE"  ) {
+                m2rM1 = de16.textContent.substring(7,11) + "H" ;
+            }
+            //LD r,(HL)
+            if (m2rM1 == "HL" || m2rM1 == "hl" || m2rM1 == "Hl"  || m2rM1 == "hL" ) {
+                m2rM1 = hl16.textContent.substring(7,11) + "H" ;
+            }
+            if (m2rM1.substring(0,2) == "IX" || m2rM1.substring(0,2) == "ix" || m2rM1.substring(0,2) == "Ix" || m2rM1.substring(0,2) == "iX") {
+                if (m2rM1.substring(2,3) == "+"){
+                    m2rM1 = parseInt(ix.textContent.substring(7,11)) + parseInt(m2rM1.substring(3,4)) + "H";
+                } else if (m2rM1.substring(2,3) == "-") {
+                    m2rM1 = parseInt(ix.textContent.substring(7,11)) - parseInt(m2rM1.substring(3,4)) + "H";
+                }
+                
+            }
+            if (m2rM1.substring(0,2) == "IY" || m2rM1.substring(0,2) == "iy" || m2rM1.substring(0,2) == "Iy" || m2rM1.substring(0,2) == "iY") {
+                if (m2rM1.substring(2,3) == "+"){
+                    m2rM1 = parseInt(iy.textContent.substring(7,11)) + parseInt(m2rM1.substring(3,4)) + "H";
+                } else if (m2rM1.substring(2,3) == "-") {
+                    m2rM1 = parseInt(iy.textContent.substring(7,11)) - parseInt(m2rM1.substring(3,4)) + "H";
+                }
+            }
+
+
+            // LD r,(2000H)
+            if (m2rM1 == "2000H" || m2rM1 == "2000h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2000.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2000.textContent.substring(8,10); }
+            }
+
+            // LD r,(2001H)
+            if (m2rM1 == "2001H" || m2rM1 == "2001h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2001.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2001.textContent.substring(8,10); }
+            }
+
+            // LD r,(2002H)
+            if (m2rM1 == "2002H" || m2rM1 == "2002h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2002.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2002.textContent.substring(8,10); }
+            }
+
+            // LD r,(2003H)
+            if (m2rM1 == "2003H" || m2rM1 == "2003h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2003.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2003.textContent.substring(8,10); }
+            }
+
+            // LD r,(2004H)
+            if (m2rM1 == "2004H" || m2rM1 == "2004h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2004.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2004.textContent.substring(8,10); }
+            }
+
+            // LD r,(2005H)
+            if (m2rM1 == "2005H" || m2rM1 == "2005h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2005.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2005.textContent.substring(8,10); }
+            }
+
+            // LD r,(2006H)
+            if (m2rM1 == "2006H" || m2rM1 == "2006h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2006.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2006.textContent.substring(8,10); }
+            }
+
+            // LD r,(2007H)
+            if (m2rM1 == "2007H" || m2rM1 == "2007h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2007.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2007.textContent.substring(8,10); }
+            }
+
+            // LD r,(2008H)
+            if (m2rM1 == "2008H" || m2rM1 == "2008h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2008.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2008.textContent.substring(8,10); }
+            }
+
+            // LD r,(2009H)
+            if (m2rM1 == "2009H" || m2rM1 == "2009h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2009.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2009.textContent.substring(8,10); }
+            }
+
+            // LD r,(200AH)
+            if (m2rM1 == "200AH" || m2rM1 == "200ah" || m2rM1 == "200Ah" || m2rM1 == "200aH" ){
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200a.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200a.textContent.substring(8,10); }
+            }
+
+            // LD r,(200BH)
+            if (m2rM1 == "200BH" || m2rM1 == "200bh" || m2rM1 == "200Bh" || m2rM1 == "200bH" ) {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200b.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200b.textContent.substring(8,10); }
+            }
+
+            // LD r,(200CH)
+            if (m2rM1 == "200CH" || m2rM1 == "200ch" || m2rM1 == "200Ch" || m2rM1 == "200cH" ) {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200c.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200c.textContent.substring(8,10); }
+            }
+
+            // LD r,(200DH)
+            if (m2rM1 == "200DH" || m2rM1 == "200dh"|| m2rM1 == "200Dh" || m2rM1 == "200dH" ) {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200d.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200d.textContent.substring(8,10); }
+            }
+
+            // LD r,(200EH)
+            if (m2rM1 == "200EH" || m2rM1 == "200eh"|| m2rM1 == "200Eh" || m2rM1 == "200eH" ) {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200e.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200e.textContent.substring(8,10); }
+            }
+
+            // LD r,(200FH)
+            if (m2rM1 == "200FH" || m2rM1 == "200fh" || m2rM1 == "200Fh" || m2rM1 == "200fH" ) {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200f.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200f.textContent.substring(8,10); }
+            }
+
+            // LD r,(2010H)
+            if (m2rM1 == "2010H" || m2rM1 == "2010h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2010.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2010.textContent.substring(8,10); }
+            }
+
+            // LD r,(2011H)
+            if (m2rM1 == "2011H" || m2rM1 == "2011h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2011.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2011.textContent.substring(8,10); }
+            }
+
+            // LD r,(2012H)
+            if (m2rM1 == "2012H" || m2rM1 == "2012h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2012.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2012.textContent.substring(8,10); }
+            }
+
+            // LD r,(2013H)
+            if (m2rM1 == "2013H" || m2rM1 == "2013h") {
+                if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2013.textContent.substring(8,10); }
+                if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2013.textContent.substring(8,10); }
+            }
+
+            // LD HL,(nn)
+            if (m2rR1 == "HL" || m2rR1 == "hl"){
+                if (m2rM1 == "1999H" || m2rM1 == "1999h") { h8.textContent = "H = 0x" + m2000.textContent.substring(8,10);}
+                if (m2rM1 == "2000H" || m2rM1 == "2000h") { l8.textContent = "L = 0x" + m2000.textContent.substring(8,10); h8.textContent = "H = 0x" + m2001.textContent.substring(8,10);}
+                if (m2rM1 == "2001H" || m2rM1 == "2001h") { l8.textContent = "L = 0x" + m2001.textContent.substring(8,10); h8.textContent = "H = 0x" + m2002.textContent.substring(8,10);}
+                if (m2rM1 == "2002H" || m2rM1 == "2002h") { l8.textContent = "L = 0x" + m2002.textContent.substring(8,10); h8.textContent = "H = 0x" + m2003.textContent.substring(8,10);}
+                if (m2rM1 == "2003H" || m2rM1 == "2003h") { l8.textContent = "L = 0x" + m2003.textContent.substring(8,10); h8.textContent = "H = 0x" + m2004.textContent.substring(8,10);}
+                if (m2rM1 == "2004H" || m2rM1 == "2004h") { l8.textContent = "L = 0x" + m2004.textContent.substring(8,10); h8.textContent = "H = 0x" + m2005.textContent.substring(8,10);}
+                if (m2rM1 == "2005H" || m2rM1 == "2005h") { l8.textContent = "L = 0x" + m2005.textContent.substring(8,10); h8.textContent = "H = 0x" + m2006.textContent.substring(8,10);}
+                if (m2rM1 == "2006H" || m2rM1 == "2006h") { l8.textContent = "L = 0x" + m2006.textContent.substring(8,10); h8.textContent = "H = 0x" + m2007.textContent.substring(8,10);}
+                if (m2rM1 == "2007H" || m2rM1 == "2007h") { l8.textContent = "L = 0x" + m2007.textContent.substring(8,10); h8.textContent = "H = 0x" + m2008.textContent.substring(8,10);}
+                if (m2rM1 == "2008H" || m2rM1 == "2008h") { l8.textContent = "L = 0x" + m2008.textContent.substring(8,10); h8.textContent = "H = 0x" + m2009.textContent.substring(8,10);}
+                if (m2rM1 == "2009H" || m2rM1 == "2009h") { l8.textContent = "L = 0x" + m2009.textContent.substring(8,10); h8.textContent = "H = 0x" + m200a.textContent.substring(8,10);}
+                if (m2rM1 == "200AH" || m2rM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { l8.textContent = "L = 0x" + m200a.textContent.substring(8,10); h8.textContent = "H = 0x" + m200b.textContent.substring(8,10);}
+                if (m2rM1 == "200BH" || m2rM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { l8.textContent = "L = 0x" + m200b.textContent.substring(8,10); h8.textContent = "H = 0x" + m200c.textContent.substring(8,10);}
+                if (m2rM1 == "200CH" || m2rM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { l8.textContent = "L = 0x" + m200c.textContent.substring(8,10); h8.textContent = "H = 0x" + m200d.textContent.substring(8,10);}
+                if (m2rM1 == "200DH" || m2rM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { l8.textContent = "L = 0x" + m200d.textContent.substring(8,10); h8.textContent = "H = 0x" + m200e.textContent.substring(8,10);}
+                if (m2rM1 == "200EH" || m2rM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { l8.textContent = "L = 0x" + m200e.textContent.substring(8,10); h8.textContent = "H = 0x" + m200f.textContent.substring(8,10);}
+                if (m2rM1 == "200FH" || m2rM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { l8.textContent = "L = 0x" + m200f.textContent.substring(8,10); h8.textContent = "H = 0x" + m2010.textContent.substring(8,10);}
+                if (m2rM1 == "2010H" || m2rM1 == "2010h") { l8.textContent = "L = 0x" + m2010.textContent.substring(8,10); h8.textContent = "H = 0x" + m2011.textContent.substring(8,10);}
+                if (m2rM1 == "2011H" || m2rM1 == "2011h") { l8.textContent = "L = 0x" + m2011.textContent.substring(8,10); h8.textContent = "H = 0x" + m2012.textContent.substring(8,10);}
+                if (m2rM1 == "2012H" || m2rM1 == "2012h") { l8.textContent = "L = 0x" + m2012.textContent.substring(8,10); h8.textContent = "H = 0x" + m2013.textContent.substring(8,10);}
+                if (m2rM1 == "2013H" || m2rM1 == "2013h") { l8.textContent = "L = 0x" + m2013.textContent.substring(8,10);}
+            }
+
+            //Register to Memory
+            //LD (BC),r
+            if (r2mM1 == "BC" || r2mM1 == "bc" || r2mM1 == "Bc" || r2mM1 == "bC" ) {
+                r2mM1 = bc16.textContent.substring(7,11) + "H" ;
+            }
+            //LD (DE),r
+            if (r2mM1 == "DE" || r2mM1 == "de" || r2mM1 == "De" || r2mM1 == "dE") {
+                r2mM1 = de16.textContent.substring(7,11) + "H" ;
+            }
+            //LD (HL),r
+            if (r2mM1 == "HL" || r2mM1 == "hl" || r2mM1 == "Hl" || r2mM1 == "hL") {
+                r2mM1 = hl16.textContent.substring(7,11) + "H" ;
+            }
+            if (r2mM1.substring(0,2) == "IX" || r2mM1.substring(0,2) == "ix" || r2mM1.substring(0,2) == "Ix" || r2mM1.substring(0,2) == "iX") {
+                if (r2mM1.substring(2,3) == "+") {
+                    r2mM1 = parseInt(ix.textContent.substring(7,11)) + parseInt(r2mM1.substring(3,4)) + "H";
+                } else if (r2mM1.substring(2,3) == "+") {
+                    r2mM1 = parseInt(ix.textContent.substring(7,11)) - parseInt(r2mM1.substring(3,4)) + "H";
+                }
+            }
+            if (r2mM1.substring(0,2) == "IY" || r2mM1.substring(0,2) == "iy" || r2mM1.substring(0,2) == "Iy" || r2mM1.substring(0,2) == "iY") {
+                if (r2mM1.substring(2,3) == "+") {
+                    r2mM1 = parseInt(iy.textContent.substring(7,11)) + parseInt(r2mM1.substring(3,4)) + "H";
+                } else if (r2mM1.substring(2,3) == "-") {
+                    r2mM1 = parseInt(iy.textContent.substring(7,11)) - parseInt(r2mM1.substring(3,4)) + "H";
+                }
+            }
+
+            //LD (nn),A
+            if (r2mR1 == "A" || r2mM1 == "a") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + a8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + a8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),B
+            if (r2mR1 == "B" || r2mM1 == "b") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + b8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + b8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),C
+            if (r2mR1 == "C" || r2mM1 == "c") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + c8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + c8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),D
+            if (r2mR1 == "D" || r2mM1 == "d") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + d8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + d8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),E
+            if (r2mR1 == "E" || r2mM1 == "e") {
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + e8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + e8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),F
+            if (r2mR1 == "F" || r2mM1 == "f") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + f8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + f8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),H
+            if (r2mR1 == "H" || r2mM1 == "h") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + h8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + h8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),L
+            if (r2mR1 == "L" || r2mM1 == "l") { 
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + l8.textContent.substring(6,8)}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + l8.textContent.substring(6,8)}
+            }
+
+            //LD (nn),HL
+            if (r2mR1 == "HL" || r2mR1 == "hl") {
+                if (r2mM1 == "1999H" || r2mM1 == "1999h") { m2000.textContent = "2000: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + l8.textContent.substring(6,8); m2001.textContent = "2001: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + l8.textContent.substring(6,8); m2002.textContent = "2002: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + l8.textContent.substring(6,8); m2003.textContent = "2003: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + l8.textContent.substring(6,8); m2004.textContent = "2004: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + l8.textContent.substring(6,8); m2005.textContent = "2005: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + l8.textContent.substring(6,8); m2006.textContent = "2006: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + l8.textContent.substring(6,8); m2007.textContent = "2007: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + l8.textContent.substring(6,8); m2008.textContent = "2008: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + l8.textContent.substring(6,8); m2009.textContent = "2009: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + l8.textContent.substring(6,8); m200a.textContent = "200A: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + l8.textContent.substring(6,8); m200b.textContent = "200B: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + l8.textContent.substring(6,8); m200c.textContent = "200C: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + l8.textContent.substring(6,8); m200d.textContent = "200D: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + l8.textContent.substring(6,8); m200e.textContent = "200E: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + l8.textContent.substring(6,8); m200f.textContent = "200F: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + l8.textContent.substring(6,8); m2010.textContent = "2010: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + l8.textContent.substring(6,8); m2011.textContent = "2011: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + l8.textContent.substring(6,8); m2012.textContent = "2012: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + l8.textContent.substring(6,8); m2013.textContent = "2013: 0x" + h8.textContent.substring(6,8);}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + l8.textContent.substring(6,8);}
+            }
+
+            if (r2mR1 == "IX" || r2mR1 == "ix") {
+                if (r2mM1 == "1999H" || r2mM1 == "1999h") { m2000.textContent = "2000: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + ix.textContent.substring(9,11); m2001.textContent = "2001: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + ix.textContent.substring(9,11); m2002.textContent = "2002: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + ix.textContent.substring(9,11); m2003.textContent = "2003: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + ix.textContent.substring(9,11); m2004.textContent = "2004: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + ix.textContent.substring(9,11); m2005.textContent = "2005: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + ix.textContent.substring(9,11); m2006.textContent = "2006: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + ix.textContent.substring(9,11); m2007.textContent = "2007: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + ix.textContent.substring(9,11); m2008.textContent = "2008: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + ix.textContent.substring(9,11); m2009.textContent = "2009: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + ix.textContent.substring(9,11); m200a.textContent = "200A: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + ix.textContent.substring(9,11); m200b.textContent = "200B: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + ix.textContent.substring(9,11); m200c.textContent = "200C: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + ix.textContent.substring(9,11); m200d.textContent = "200D: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + ix.textContent.substring(9,11); m200e.textContent = "200E: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + ix.textContent.substring(9,11); m200f.textContent = "200F: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + ix.textContent.substring(9,11); m2010.textContent = "2010: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + ix.textContent.substring(9,11); m2011.textContent = "2011: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + ix.textContent.substring(9,11); m2012.textContent = "2012: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + ix.textContent.substring(9,11); m2013.textContent = "2013: 0x" + ix.textContent.substring(7,9);}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + ix.textContent.substring(9,11);}
+            }
+
+            if (r2mR1 == "IY" || r2mR1 == "iy") {
+                if (r2mM1 == "1999H" || r2mM1 == "1999h") { m2000.textContent = "2000: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + iy.textContent.substring(9,11); m2001.textContent = "2001: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + iy.textContent.substring(9,11); m2002.textContent = "2002: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + iy.textContent.substring(9,11); m2003.textContent = "2003: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + iy.textContent.substring(9,11); m2004.textContent = "2004: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + iy.textContent.substring(9,11); m2005.textContent = "2005: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + iy.textContent.substring(9,11); m2006.textContent = "2006: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + iy.textContent.substring(9,11); m2007.textContent = "2007: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + iy.textContent.substring(9,11); m2008.textContent = "2008: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + iy.textContent.substring(9,11); m2009.textContent = "2009: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + iy.textContent.substring(9,11); m200a.textContent = "200A: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + iy.textContent.substring(9,11); m200b.textContent = "200B: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + iy.textContent.substring(9,11); m200c.textContent = "200C: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + iy.textContent.substring(9,11); m200d.textContent = "200D: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + iy.textContent.substring(9,11); m200e.textContent = "200E: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + iy.textContent.substring(9,11); m200f.textContent = "200F: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + iy.textContent.substring(9,11); m2010.textContent = "2010: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + iy.textContent.substring(9,11); m2011.textContent = "2011: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + iy.textContent.substring(9,11); m2012.textContent = "2012: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + iy.textContent.substring(9,11); m2013.textContent = "2013: 0x" + iy.textContent.substring(7,9);}
+                if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + iy.textContent.substring(9,11);}
+            }
+
+            //LD (HL),n
+            if (d2mR1 == "HL" || d2mR1 == "hl" || d2mR1 == "Hl" || d2mR1 == "hL") {
+                d2mR1 = hl16.textContent.substring(7,11) + "H" ;
+            }
+            if (d2mR1.substring(0,2) == "IX" || d2mR1.substring(0,2) == "ix" || d2mR1.substring(0,2) == "Ix" || d2mR1.substring(0,2) == "iX") {
+                d2mR1 = parseInt(ix.textContent.substring(7,11)) + parseInt(r2mM1.substring(3,4)) + "H";
+            }
+            if (d2mR1.substring(0,2) == "IY" || d2mR1.substring(0,2) == "iy" || d2mR1.substring(0,2) == "Iy" || d2mR1.substring(0,2) == "iY") {
+                d2mR1 = parseInt(iy.textContent.substring(7,11)) + parseInt(d2mM1.substring(3,4)) + "H";
+            }
+
+            //LD (rr),n
+            if (d2mR1 == "2000H" || d2mR1 == "2000h") { m2000.textContent = "2000: 0x" + d2mData; }
+            if (d2mR1 == "2001H" || d2mR1 == "2001h") { m2001.textContent = "2001: 0x" + d2mData; }
+            if (d2mR1 == "2002H" || d2mR1 == "2002h") { m2002.textContent = "2002: 0x" + d2mData; }
+            if (d2mR1 == "2003H" || d2mR1 == "2003h") { m2003.textContent = "2003: 0x" + d2mData; }
+            if (d2mR1 == "2004H" || d2mR1 == "2004h") { m2004.textContent = "2004: 0x" + d2mData; }
+            if (d2mR1 == "2005H" || d2mR1 == "2005h") { m2005.textContent = "2005: 0x" + d2mData; }
+            if (d2mR1 == "2006H" || d2mR1 == "2006h") { m2006.textContent = "2006: 0x" + d2mData; }
+            if (d2mR1 == "2007H" || d2mR1 == "2007h") { m2007.textContent = "2007: 0x" + d2mData; }
+            if (d2mR1 == "2008H" || d2mR1 == "2008h") { m2008.textContent = "2008: 0x" + d2mData; }
+            if (d2mR1 == "2009H" || d2mR1 == "2009h") { m2009.textContent = "2009: 0x" + d2mData; }
+            if (d2mR1 == "200AH" || d2mR1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + d2mData; }
+            if (d2mR1 == "200BH" || d2mR1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + d2mData; }
+            if (d2mR1 == "200CH" || d2mR1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + d2mData; }
+            if (d2mR1 == "200DH" || d2mR1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + d2mData; }
+            if (d2mR1 == "200EH" || d2mR1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + d2mData; }
+            if (d2mR1 == "200FH" || d2mR1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + d2mData; }
+            if (d2mR1 == "2010H" || d2mR1 == "2010h") { m2010.textContent = "2010: 0x" + d2mData; }
+            if (d2mR1 == "2011H" || d2mR1 == "2011h") { m2011.textContent = "2011: 0x" + d2mData; }
+            if (d2mR1 == "2012H" || d2mR1 == "2012h") { m2012.textContent = "2012: 0x" + d2mData; }
+            if (d2mR1 == "2013H" || d2mR1 == "2013h") { m2013.textContent = "2013: 0x" + d2mData; }
         }
 
-        //LD B,r
-        if (r2rR1 == "B" || r2rR1 == "b") {
-            if (r2rR2 == "A" || r2rR2 == "a") { b8.textContent = "B = 0x" + a8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { b8.textContent = "B = 0x" + c8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { b8.textContent = "B = 0x" + d8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { b8.textContent = "B = 0x" + e8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { b8.textContent = "B = 0x" + f8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { b8.textContent = "B = 0x" + h8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { b8.textContent = "B = 0x" + l8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
+        //Click Reset
+        function reset() {
+            a8.textContent = "A = 0x00";
+            b8.textContent = "B = 0x00";
+            c8.textContent = "C = 0x00";
+            d8.textContent = "D = 0x00";
+            e8.textContent = "E = 0x00";
+            f8.textContent = "F = 0x00";
+            h8.textContent = "H = 0x00";
+            l8.textContent = "L = 0x00";
+            af16.textContent = "AF = 0x0000";
+            bc16.textContent = "BC = 0x0000";
+            de16.textContent = "DE = 0x0000";
+            hl16.textContent = "HL = 0x0000";
         }
 
-        //LD C,r
-        if (r2rR1 == "C" || r2rR1 == "c") {
-            if (r2rR2 == "A" || r2rR2 == "a") { c8.textContent = "C = 0x" + a8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { c8.textContent = "C = 0x" + b8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { c8.textContent = "C = 0x" + d8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { c8.textContent = "C = 0x" + e8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { c8.textContent = "C = 0x" + f8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { c8.textContent = "C = 0x" + h8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { c8.textContent = "C = 0x" + l8.textContent.substring(6, 8); bc16.textContent = "BC = 0x" + b8.textContent.substring(6, 8) + c8.textContent.substring(6, 8); }
-        }
-
-        //LD D,r
-        if (r2rR1 == "D" || r2rR1 == "d") {
-            if (r2rR2 == "A" || r2rR2 == "a") { d8.textContent = "D = 0x" + a8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { d8.textContent = "D = 0x" + b8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { d8.textContent = "D = 0x" + c8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { d8.textContent = "D = 0x" + e8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { d8.textContent = "D = 0x" + f8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { d8.textContent = "D = 0x" + h8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { d8.textContent = "D = 0x" + l8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-        }
-
-        //LD E,r
-        if (r2rR1 == "E" || r2rR1 == "e") {
-            if (r2rR2 == "A" || r2rR2 == "a") { e8.textContent = "E = 0x" + a8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { e8.textContent = "E = 0x" + b8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { e8.textContent = "E = 0x" + c8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { e8.textContent = "E = 0x" + d8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { e8.textContent = "E = 0x" + f8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { e8.textContent = "E = 0x" + h8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { e8.textContent = "E = 0x" + l8.textContent.substring(6, 8); de16.textContent = "DE = 0x" + d8.textContent.substring(6, 8) + e8.textContent.substring(6, 8); }
-        }
-
-        //LD F,r
-        if (r2rR1 == "F" || r2rR1 == "f") {
-            if (r2rR2 == "A" || r2rR2 == "a") { f8.textContent = "F = 0x" + a8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { f8.textContent = "F = 0x" + b8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { f8.textContent = "F = 0x" + c8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { f8.textContent = "F = 0x" + d8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { f8.textContent = "F = 0x" + e8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { f8.textContent = "F = 0x" + h8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { f8.textContent = "F = 0x" + l8.textContent.substring(6, 8); af16.textContent = "AF = 0x" + a8.textContent.substring(6, 8) + f8.textContent.substring(6, 8); }
-        }
-
-        //LD H,r
-        if (r2rR1 == "H" || r2rR1 == "h") {
-            if (r2rR2 == "A" || r2rR2 == "a") { h8.textContent = "H = 0x" + a8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { h8.textContent = "H = 0x" + b8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { h8.textContent = "H = 0x" + c8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { h8.textContent = "H = 0x" + d8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { h8.textContent = "H = 0x" + e8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { h8.textContent = "H = 0x" + f8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "L" || r2rR2 == "l") { h8.textContent = "H = 0x" + l8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-        }
-
-        //LD L,r
-        if (r2rR1 == "L" || r2rR1 == "l") {
-            if (r2rR2 == "A" || r2rR2 == "a") { l8.textContent = "L = 0x" + a8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "B" || r2rR2 == "b") { l8.textContent = "L = 0x" + b8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "C" || r2rR2 == "c") { l8.textContent = "L = 0x" + c8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "D" || r2rR2 == "d") { l8.textContent = "L = 0x" + d8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "E" || r2rR2 == "e") { l8.textContent = "L = 0x" + e8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "F" || r2rR2 == "f") { l8.textContent = "L = 0x" + f8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-            if (r2rR2 == "H" || r2rR2 == "h") { l8.textContent = "L = 0x" + h8.textContent.substring(6, 8); hl16.textContent = "HL = 0x" + h8.textContent.substring(6, 8) + l8.textContent.substring(6, 8); }
-        }
-
-        //Memory to Register
-        //LD r,(BC)
-        if (m2rM1 == "BC" || m2rM1 == "bc" || m2rM1 == "Bc" || m2rM1 == "bC") {
-            m2rM1 = bc16.textContent.substring(7, 11) + "H";
-        }
-        //LD r,(DE)
-        if (m2rM1 == "DE" || m2rM1 == "de" || m2rM1 == "De" || m2rM1 == "dE") {
-            m2rM1 = de16.textContent.substring(7, 11) + "H";
-        }
-        //LD r,(HL)
-        if (m2rM1 == "HL" || m2rM1 == "hl" || m2rM1 == "Hl" || m2rM1 == "hL") {
-            m2rM1 = hl16.textContent.substring(7, 11) + "H";
-        }
-
-
-        // LD r,(2000H)
-        if (m2rM1 == "2000H" || m2rM1 == "2000h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2000.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2001H)
-        if (m2rM1 == "2001H" || m2rM1 == "2001h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2001.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2002H)
-        if (m2rM1 == "2002H" || m2rM1 == "2002h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2002.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2003H)
-        if (m2rM1 == "2003H" || m2rM1 == "2003h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2003.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2004H)
-        if (m2rM1 == "2004H" || m2rM1 == "2004h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2004.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2005H)
-        if (m2rM1 == "2005H" || m2rM1 == "2005h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2005.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2006H)
-        if (m2rM1 == "2006H" || m2rM1 == "2006h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2006.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2007H)
-        if (m2rM1 == "2007H" || m2rM1 == "2007h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2007.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2008H)
-        if (m2rM1 == "2008H" || m2rM1 == "2008h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2008.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2009H)
-        if (m2rM1 == "2009H" || m2rM1 == "2009h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2009.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200AH)
-        if (m2rM1 == "200AH" || m2rM1 == "200ah" || m2rM1 == "200Ah" || m2rM1 == "200aH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200a.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200BH)
-        if (m2rM1 == "200BH" || m2rM1 == "200bh" || m2rM1 == "200Bh" || m2rM1 == "200bH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200b.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200CH)
-        if (m2rM1 == "200CH" || m2rM1 == "200ch" || m2rM1 == "200Ch" || m2rM1 == "200cH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200c.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200DH)
-        if (m2rM1 == "200DH" || m2rM1 == "200dh" || m2rM1 == "200Dh" || m2rM1 == "200dH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200d.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200EH)
-        if (m2rM1 == "200EH" || m2rM1 == "200eh" || m2rM1 == "200Eh" || m2rM1 == "200eH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200e.textContent.substring(8, 10); }
-        }
-
-        // LD r,(200FH)
-        if (m2rM1 == "200FH" || m2rM1 == "200fh" || m2rM1 == "200Fh" || m2rM1 == "200fH") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m200f.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2010H)
-        if (m2rM1 == "2010H" || m2rM1 == "2010h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2010.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2011H)
-        if (m2rM1 == "2011H" || m2rM1 == "2011h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2011.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2012H)
-        if (m2rM1 == "2012H" || m2rM1 == "2012h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2012.textContent.substring(8, 10); }
-        }
-
-        // LD r,(2013H)
-        if (m2rM1 == "2013H" || m2rM1 == "2013h") {
-            if (m2rR1 == "A" || m2rR1 == "a") { a8.textContent = "A = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "B" || m2rR1 == "b") { b8.textContent = "B = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "C" || m2rR1 == "c") { c8.textContent = "C = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "D" || m2rR1 == "d") { d8.textContent = "D = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "E" || m2rR1 == "e") { e8.textContent = "E = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "F" || m2rR1 == "f") { f8.textContent = "F = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "H" || m2rR1 == "h") { h8.textContent = "H = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rR1 == "L" || m2rR1 == "l") { l8.textContent = "L = 0x" + m2013.textContent.substring(8, 10); }
-        }
-
-        // LD HL,(nn)
-        if (m2rR1 == "HL" || m2rR1 == "hl") {
-            if (m2rM1 == "1999H" || m2rM1 == "1999h") { h8.textContent = "H = 0x" + m2000.textContent.substring(8, 10); }
-            if (m2rM1 == "2000H" || m2rM1 == "2000h") { l8.textContent = "L = 0x" + m2000.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2001.textContent.substring(8, 10); }
-            if (m2rM1 == "2001H" || m2rM1 == "2001h") { l8.textContent = "L = 0x" + m2001.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2002.textContent.substring(8, 10); }
-            if (m2rM1 == "2002H" || m2rM1 == "2002h") { l8.textContent = "L = 0x" + m2002.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2003.textContent.substring(8, 10); }
-            if (m2rM1 == "2003H" || m2rM1 == "2003h") { l8.textContent = "L = 0x" + m2003.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2004.textContent.substring(8, 10); }
-            if (m2rM1 == "2004H" || m2rM1 == "2004h") { l8.textContent = "L = 0x" + m2004.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2005.textContent.substring(8, 10); }
-            if (m2rM1 == "2005H" || m2rM1 == "2005h") { l8.textContent = "L = 0x" + m2005.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2006.textContent.substring(8, 10); }
-            if (m2rM1 == "2006H" || m2rM1 == "2006h") { l8.textContent = "L = 0x" + m2006.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2007.textContent.substring(8, 10); }
-            if (m2rM1 == "2007H" || m2rM1 == "2007h") { l8.textContent = "L = 0x" + m2007.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2008.textContent.substring(8, 10); }
-            if (m2rM1 == "2008H" || m2rM1 == "2008h") { l8.textContent = "L = 0x" + m2008.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2009.textContent.substring(8, 10); }
-            if (m2rM1 == "2009H" || m2rM1 == "2009h") { l8.textContent = "L = 0x" + m2009.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200a.textContent.substring(8, 10); }
-            if (m2rM1 == "200AH" || m2rM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { l8.textContent = "L = 0x" + m200a.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200b.textContent.substring(8, 10); }
-            if (m2rM1 == "200BH" || m2rM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { l8.textContent = "L = 0x" + m200b.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200c.textContent.substring(8, 10); }
-            if (m2rM1 == "200CH" || m2rM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { l8.textContent = "L = 0x" + m200c.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200d.textContent.substring(8, 10); }
-            if (m2rM1 == "200DH" || m2rM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { l8.textContent = "L = 0x" + m200d.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200e.textContent.substring(8, 10); }
-            if (m2rM1 == "200EH" || m2rM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { l8.textContent = "L = 0x" + m200e.textContent.substring(8, 10); h8.textContent = "H = 0x" + m200f.textContent.substring(8, 10); }
-            if (m2rM1 == "200FH" || m2rM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { l8.textContent = "L = 0x" + m200f.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2010.textContent.substring(8, 10); }
-            if (m2rM1 == "2010H" || m2rM1 == "2010h") { l8.textContent = "L = 0x" + m2010.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2011.textContent.substring(8, 10); }
-            if (m2rM1 == "2011H" || m2rM1 == "2011h") { l8.textContent = "L = 0x" + m2011.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2012.textContent.substring(8, 10); }
-            if (m2rM1 == "2012H" || m2rM1 == "2012h") { l8.textContent = "L = 0x" + m2012.textContent.substring(8, 10); h8.textContent = "H = 0x" + m2013.textContent.substring(8, 10); }
-            if (m2rM1 == "2013H" || m2rM1 == "2013h") { l8.textContent = "L = 0x" + m2013.textContent.substring(8, 10); }
-        }
-
-        //Register to Memory
-        //LD (BC),r
-        if (r2mM1 == "BC" || r2mM1 == "bc" || r2mM1 == "Bc" || r2mM1 == "bC") {
-            r2mM1 = bc16.textContent.substring(7, 11) + "H";
-        }
-        //LD (DE),r
-        if (r2mM1 == "DE" || r2mM1 == "de" || r2mM1 == "De" || r2mM1 == "dE") {
-            r2mM1 = de16.textContent.substring(7, 11) + "H";
-        }
-        //LD (HL),r
-        if (r2mM1 == "HL" || r2mM1 == "hl" || r2mM1 == "Hl" || r2mM1 == "hL") {
-            r2mM1 = hl16.textContent.substring(7, 11) + "H";
-        }
-
-        //LD (nn),A
-        if (r2mR1 == "A" || r2mM1 == "a") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + a8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + a8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),B
-        if (r2mR1 == "B" || r2mM1 == "b") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + b8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + b8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),C
-        if (r2mR1 == "C" || r2mM1 == "c") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + c8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + c8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),D
-        if (r2mR1 == "D" || r2mM1 == "d") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + d8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + d8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),E
-        if (r2mR1 == "E" || r2mM1 == "e") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + e8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + e8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),F
-        if (r2mR1 == "F" || r2mM1 == "f") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + f8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + f8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),H
-        if (r2mR1 == "H" || r2mM1 == "h") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + h8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + h8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),L
-        if (r2mR1 == "L" || r2mM1 == "l") {
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + l8.textContent.substring(6, 8) }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + l8.textContent.substring(6, 8) }
-        }
-
-        //LD (nn),HL
-        if (r2mR1 == "HL" || r2mR1 == "hl") {
-            if (r2mM1 == "1999H" || r2mM1 == "1999h") { m2000.textContent = "2000: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2000H" || r2mM1 == "2000h") { m2000.textContent = "2000: 0x" + l8.textContent.substring(6, 8); m2001.textContent = "2001: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2001H" || r2mM1 == "2001h") { m2001.textContent = "2001: 0x" + l8.textContent.substring(6, 8); m2002.textContent = "2002: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2002H" || r2mM1 == "2002h") { m2002.textContent = "2002: 0x" + l8.textContent.substring(6, 8); m2003.textContent = "2003: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2003H" || r2mM1 == "2003h") { m2003.textContent = "2003: 0x" + l8.textContent.substring(6, 8); m2004.textContent = "2004: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2004H" || r2mM1 == "2004h") { m2004.textContent = "2004: 0x" + l8.textContent.substring(6, 8); m2005.textContent = "2005: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2005H" || r2mM1 == "2005h") { m2005.textContent = "2005: 0x" + l8.textContent.substring(6, 8); m2006.textContent = "2006: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2006H" || r2mM1 == "2006h") { m2006.textContent = "2006: 0x" + l8.textContent.substring(6, 8); m2007.textContent = "2007: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2007H" || r2mM1 == "2007h") { m2007.textContent = "2007: 0x" + l8.textContent.substring(6, 8); m2008.textContent = "2008: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2008H" || r2mM1 == "2008h") { m2008.textContent = "2008: 0x" + l8.textContent.substring(6, 8); m2009.textContent = "2009: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2009H" || r2mM1 == "2009h") { m2009.textContent = "2009: 0x" + l8.textContent.substring(6, 8); m200a.textContent = "200A: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200AH" || r2mM1 == "200ah" || r2mM1 == "200Ah" || r2mM1 == "200aH") { m200a.textContent = "200A: 0x" + l8.textContent.substring(6, 8); m200b.textContent = "200B: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200BH" || r2mM1 == "200bh" || r2mM1 == "200Bh" || r2mM1 == "200bH") { m200b.textContent = "200B: 0x" + l8.textContent.substring(6, 8); m200c.textContent = "200C: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200CH" || r2mM1 == "200ch" || r2mM1 == "200Ch" || r2mM1 == "200cH") { m200c.textContent = "200C: 0x" + l8.textContent.substring(6, 8); m200d.textContent = "200D: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200DH" || r2mM1 == "200dh" || r2mM1 == "200Dh" || r2mM1 == "200dH") { m200d.textContent = "200D: 0x" + l8.textContent.substring(6, 8); m200e.textContent = "200E: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200EH" || r2mM1 == "200eh" || r2mM1 == "200Eh" || r2mM1 == "200eH") { m200e.textContent = "200E: 0x" + l8.textContent.substring(6, 8); m200f.textContent = "200F: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "200FH" || r2mM1 == "200fh" || r2mM1 == "200Fh" || r2mM1 == "200fH") { m200f.textContent = "200F: 0x" + l8.textContent.substring(6, 8); m2010.textContent = "2010: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2010H" || r2mM1 == "2010h") { m2010.textContent = "2010: 0x" + l8.textContent.substring(6, 8); m2011.textContent = "2011: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2011H" || r2mM1 == "2011h") { m2011.textContent = "2011: 0x" + l8.textContent.substring(6, 8); m2012.textContent = "2012: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2012H" || r2mM1 == "2012h") { m2012.textContent = "2012: 0x" + l8.textContent.substring(6, 8); m2013.textContent = "2013: 0x" + h8.textContent.substring(6, 8); }
-            if (r2mM1 == "2013H" || r2mM1 == "2013h") { m2013.textContent = "2013: 0x" + l8.textContent.substring(6, 8); }
-        }
-    }
-
-    //Click Reset
-    function resetF() {
-        a8.textContent = "A = 0x00";
-        b8.textContent = "B = 0x00";
-        c8.textContent = "C = 0x00";
-        d8.textContent = "D = 0x00";
-        e8.textContent = "E = 0x00";
-        f8.textContent = "F = 0x00";
-        h8.textContent = "H = 0x00";
-        l8.textContent = "L = 0x00";
-        af16.textContent = "AF = 0x0000";
-        bc16.textContent = "BC = 0x0000";
-        de16.textContent = "DE = 0x0000";
-        hl16.textContent = "HL = 0x0000";
-    }
-</script>
-
+    </script>
 </html>

@@ -15,6 +15,10 @@ body {
   z-index: 10;
 }
 
+.center {
+  margin: auto;
+}
+
 /* Declare heights because of positioning of img element */
 .carousel-item {
   height: 42rem;

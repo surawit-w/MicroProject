@@ -10,7 +10,33 @@
         </style>
     </head>
 
-    <body>
+    <body onload="myFunction()" style="margin:0;">
+
+        <div id="loader"></div>
+
+        <!-- NAVIGATION BAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- <img class="shortcut_icon" src="images/z80icon.Icons" /> -->
+            <a class="navbar-brand" href="index.html">Z80 Project</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="loadInst.html">Load Instruction</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Load Simulator</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        
         <h2>Select type of load Instruction</h2>
         <input type="radio" name="ldtype" id="d2r"> Data to Register
         <input type="radio" name="ldtype" id="r2r"> Register to Register
@@ -45,7 +71,7 @@
             <button id="load">Load</button>
             <button id="reset">Reset</button>
         </b>
-        <regisT style="float: left">
+        <div>
             <h4>Register Value</h4>
             <table>
                 <tr><td id="A">A = 0x00</td> <td id="AF">AF = 0x0000</td> </tr>
@@ -57,9 +83,9 @@
                 <tr><td id="H">H = 0x00</td> <td id="IX">IX = 0x0000</td></tr>
                 <tr><td id="L">L = 0x00</td> <td id="IY">IY = 0x0000</td></tr>
             </table>
-        </regisT>
-        <memT>
-            <h4 id="memT" style="padding-top: 8px">Memory Address</h4>
+        </div>
+        <div>
+            <h4 id="memT" >Memory Address</h4>
             <table>
                 <tr> <td colspan="2" style="border-top-color: white; text-align: center">...</td></tr>    
                 <tr> <td id="2000">2000: 0x00</td> <td id="200A">200A: 0x00</td></tr>
@@ -74,7 +100,7 @@
                 <tr> <td id="2009">2009: 0x00</td> <td id="2013">2013: 0x00</td></tr>
                 <tr> <td colspan="2"style="border-bottom-color: white; text-align: center">...</td></tr>
             </table>
-        </memT>
+        </div>
     </body>
 
     <script>
